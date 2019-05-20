@@ -1,4 +1,4 @@
-#jwt-express-simple-boilerplate
+# jwt-express-simple-boilerplate
 
 Boilerplate for a simple Express Application with Database (mongoDB) and simple JWT Authentification.
 
