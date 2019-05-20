@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const verify = require("./verifyToken");
+const verify = require("../middleware/verifyToken");
 
 // This is a protected route with the "verify" middleware
 

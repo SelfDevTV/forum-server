@@ -2,7 +2,7 @@ const router = require("express").Router();
 const User = require("../model/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { registerValidation, loginValidation } = require("../validation");
+const { registerValidation, loginValidation } = require("../utils/validation");
 
 router.post("/register", async (req, res) => {
   // Validate the data before we save it
@@ -28,7 +28,8 @@ router.post("/register", async (req, res) => {
     password: hashPassword
   });
   try {
-    const savedUser = await user.save();
+    // Save User
+    await user.save();
     res.send({ user: user._id });
   } catch (err) {
     res.status(400).send(err);
