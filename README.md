@@ -1,6 +1,6 @@
-# jwt-express-simple-boilerplate
+# Forum Server
 
-Boilerplate for a simple Express Application with Database (mongoDB) and simple JWT Authentification.
+A backend for a new forum application.
 
 **How to use:**
 
