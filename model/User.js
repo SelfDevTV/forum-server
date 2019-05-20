@@ -14,6 +14,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+  replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reply" }],
   date: {
     type: Date,
     default: Date.now
