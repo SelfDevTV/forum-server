@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const verify = require("../middleware/verifyToken");
+const verifyToken = require("../middleware/verifyToken");
+const verifyAdmin = require("../middleware/verifyAdmin");
 const Forum = require("../model/Forum");
 const SubForum = require("../model/SubForum");
 
-router.post("/new", verify, async (req, res) => {
-  // TODO: Only admin can do this
+router.post("/new", verifyAdmin, async (req, res) => {
   const forum = new Forum({
     title: req.body.title,
     subTitle: req.body.subTitle
@@ -18,8 +18,7 @@ router.post("/new", verify, async (req, res) => {
   }
 });
 
-router.post("/newSub", verify, async (req, res) => {
-  // TODO: Only admin can do this
+router.post("/newSub", verifyAdmin, async (req, res) => {
   const subForum = new SubForum({
     title: req.body.title,
     subTitle: req.body.subTitle,
@@ -39,13 +38,13 @@ router.post("/newSub", verify, async (req, res) => {
   }
 });
 
-router.get("/all", verify, async (req, res) => {
+router.get("/all", verifyToken, async (req, res) => {
   const all = await Forum.find({}).populate("subForums");
   res.send(all);
 });
 
 // Gets the forum by id and all its subs
-router.get("/:id", verify, async (req, res) => {
+router.get("/:id", verifyToken, async (req, res) => {
   try {
     const forum = await Forum.findById(req.params.id).populate("subForums");
     res.send(forum);

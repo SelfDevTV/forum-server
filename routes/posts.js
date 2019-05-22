@@ -1,10 +1,11 @@
 const router = require("express").Router();
-const verify = require("../middleware/verifyToken");
+const verifyToken = require("../middleware/verifyToken");
 const Post = require("../model/Post");
 
-// This is a protected route with the "verify" middleware
+// This is a protected route with the "verifyToken" middleware
 
-router.post("/new", verify, async (req, res) => {
+//TODO: save it into the user's posts array
+router.post("/new", verifyToken, async (req, res) => {
   const post = new Post({
     title: req.body.title,
     body: req.body.body,
@@ -18,11 +19,13 @@ router.post("/new", verify, async (req, res) => {
   }
 });
 
-router.get("/myposts", verify, async (req, res) => {
-  Post.find({ user: req.userId }, (err, docs) => {
-    if (err) return res.status(400).send(err);
-    res.send(docs);
-  });
+router.get("/myposts", verifyToken, async (req, res) => {
+  try {
+    const posts = await Post.find({ user: req.userId });
+    res.send(posts);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 module.exports = router;
