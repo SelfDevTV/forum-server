@@ -12,7 +12,8 @@ module.exports = async function(req, res, next) {
     // check if the user is an admin
     try {
       const user = await User.findById(verified._id);
-      if (!user.isAdmin) return res.status(401).send("No Admin");
+      // TODO: Implement real admin feature
+      if (!user.toObject().isAdmin) return res.status(401).send("No Admin");
 
       next();
     } catch (err) {
