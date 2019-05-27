@@ -39,7 +39,14 @@ router.post("/newSub", verifyAdmin, async (req, res) => {
 });
 
 router.get("/all", verifyToken, async (req, res) => {
-  const all = await Forum.find({}).populate("subForums");
+  // Populating all field we need in the frontend
+  // We need: All the forums, with all subForums and for each subForum we need it's posts and last poast
+
+  const all = await Forum.find({}).populate({
+    path: "subForums",
+    populate: [{ path: "lastPost" }, { path: "posts" }]
+  });
+
   res.send(all);
 });
 

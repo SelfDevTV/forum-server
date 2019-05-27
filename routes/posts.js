@@ -1,23 +1,39 @@
 const router = require("express").Router();
 const verifyToken = require("../middleware/verifyToken");
 const Post = require("../model/Post");
+const Subforum = require("../model/SubForum");
+const User = require("../model/User");
 
 // This is a protected route with the "verifyToken" middleware
 
 //TODO: save it into the user's posts array
 router.post("/new", verifyToken, async (req, res) => {
+  console.log(req.body.subForumId);
   const post = new Post({
     title: req.body.title,
     body: req.body.body,
-    user: req.userId
+    user: req.userId,
+    subForum: req.body.subForumId
   });
   try {
     const savedPost = await post.save();
+
+    const subForum = await Subforum.findById(req.body.subForumId);
+    subForum.posts.push(savedPost._id);
+    subForum.lastPost = savedPost._id;
+
+    await subForum.save();
+    const user = await User.findById(req.userId);
+    user.posts.push(savedPost._id);
+    await user.save();
+
     res.send(savedPost);
   } catch (err) {
     res.status(400).send(err);
   }
 });
+
+//TODO: Posts by subForum Id.
 
 router.get("/myposts", verifyToken, async (req, res) => {
   try {
