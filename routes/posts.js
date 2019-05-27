@@ -17,7 +17,6 @@ router.post("/new", verifyToken, async (req, res) => {
   });
   try {
     const savedPost = await post.save();
-
     const subForum = await Subforum.findById(req.body.subForumId);
     subForum.posts.push(savedPost._id);
     subForum.lastPost = savedPost._id;
