@@ -6,7 +6,7 @@ const forumsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case types.FETCH_FORUMS:
       console.log(action.payload);
-      return state;
+      return action.payload;
     case types.FETCH_FORUMS_ERROR:
       alert(action.payload);
       return state;
