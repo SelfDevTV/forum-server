@@ -1,0 +1,8 @@
+// TODO: Add start fetching actions
+
+export const types = {
+  FETCH_FORUMS: "FETCH_FORUMS",
+  FETCH_FORUMS_ERROR: "FETCH_FORUMS_ERROR",
+  REGISTER_USER: "REGISTER_USER",
+  REGISTER_USER_ERROR: "REGISTER_USER_ERROR"
+};

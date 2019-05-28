@@ -6,6 +6,7 @@ module.exports = function(req, res, next) {
 
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+    // TODO:  Also check if the user still exists?
 
     req.userId = verified._id;
     next();
