@@ -9,9 +9,7 @@ import App from "./App";
 
 // TODO: Put this into another config file?
 // Setting axios defaults
-const user = JSON.parse(localStorage.getItem("user"));
 
-axios.defaults.headers.common["auth-token"] = user ? user.token : "";
 axios.defaults.baseURL = "http://localhost:5000";
 
 ReactDOM.render(
