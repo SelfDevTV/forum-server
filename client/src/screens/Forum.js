@@ -2,26 +2,16 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchAllForums } from "../actions/forumsActions";
 import { register, login } from "../actions/authActions";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Forum = ({ dispatch }) => {
+  const handleSignIn = () => {
+    window.open("http://localhost:5000/api/auth/facebook", "_self");
+  };
   return (
     <div>
-      <button
-        onClick={e =>
-          dispatch(
-            register("Dominik Huber", "dhuber666@test.com", "abcdefghijkl")
-          )
-        }
-      >
-        Register
-      </button>
-      <button
-        onClick={e => dispatch(login("dhuber666@test.com", "abcdefghijkl"))}
-      >
-        Login
-      </button>
-      <button onClick={e => dispatch(fetchAllForums())}>Fetch Forums</button>
-      <button onClick={e => localStorage.clear("user")}>Logout</button>
+      <button onClick={handleSignIn}>Login</button>
     </div>
   );
 };
