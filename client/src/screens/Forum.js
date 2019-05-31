@@ -15,10 +15,15 @@ const Forum = ({ dispatch }) => {
       .get("/api/user/me", { withCredentials: true })
       .then(({ data }) => console.log(data));
   };
+
+  const logout = () => {
+    axios.get("/api/auth/logout", { withCredentials: true });
+  };
   return (
     <div>
       <button onClick={handleSignIn}>Login</button>
       <button onClick={me}>Me</button>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 };

@@ -5,6 +5,8 @@ const proxy = httpProxy.createServer({});
 
 /* Facebook Auth */
 
+const CLIENT_URL = "http://localhost:3000";
+
 router.get(
   "/facebook",
 
@@ -22,7 +24,12 @@ router.get(
 
 router.get("/facebook/login", (req, res) => {
   console.log(req.user);
-  res.redirect("http://localhost:3000");
+  res.redirect(CLIENT_URL);
+});
+
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.send("Logged out");
 });
 
 /* Facebook Auth */
