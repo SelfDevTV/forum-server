@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const verifyToken = require("../middleware/verifyToken");
+const isAuthenticated = require("../middleware/isAuthenticated");
 const verifyAdmin = require("../middleware/verifyAdmin");
 const Forum = require("../model/Forum");
 const SubForum = require("../model/SubForum");
@@ -40,7 +40,7 @@ router.post("/newSub", verifyAdmin, async (req, res) => {
 
 // TODO: Do we really need to verify the token?
 
-router.get("/all", verifyToken, async (req, res) => {
+router.get("/all", isAuthenticated, async (req, res) => {
   // Populating all field we need in the frontend
   // We need: All the forums, with all subForums and for each subForum we need it's posts and last poast
 
@@ -53,7 +53,7 @@ router.get("/all", verifyToken, async (req, res) => {
 });
 
 // Gets the forum by id and all its subs
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/:id", isAuthenticated, async (req, res) => {
   try {
     const forum = await Forum.findById(req.params.id).populate("subForums");
     res.send(forum);

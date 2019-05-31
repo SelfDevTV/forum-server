@@ -9,11 +9,19 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
+    required: false
   },
   password: {
     type: String,
-    required: true
+    required: false
+  },
+  facebookId: {
+    type: String,
+    required: false,
+    index: {
+      unique: true
+    },
+    default: null
   },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reply" }],

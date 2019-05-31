@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const verifyToken = require("../middleware/verifyToken");
+const isAuthenticated = require("../middleware/isAuthenticated");
 const Post = require("../model/Post");
 const Reply = require("../model/Reply");
 const User = require("../model/User");
 
-// This is a protected route with the "verifyToken" middleware
+// This is a protected route with the "isAuthenticated" middleware
 
-router.post("/new", verifyToken, async (req, res) => {
+router.post("/new", isAuthenticated, async (req, res) => {
   const reply = new Reply({
     text: req.body.text,
     user: req.userId,
@@ -34,7 +34,7 @@ router.post("/new", verifyToken, async (req, res) => {
   }
 });
 
-router.get("/myreplies", verifyToken, async (req, res) => {
+router.get("/myreplies", isAuthenticated, async (req, res) => {
   try {
     const replies = await Reply.find({ user: req.userId });
     console.log(replies);

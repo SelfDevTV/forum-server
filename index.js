@@ -10,18 +10,21 @@ dotenv.config();
 // instantiate express
 const app = express();
 
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
 // create session
 app.use(
-  session({ secret: "hello world", resave: false, saveUninitialized: false })
+  session({ secret: "hello world", saveUninitialized: true, resave: true })
 );
-
-// Passport
-require("./config/passport")(passport);
-app.use(passport.initialize());
 
 // Middleware
 app.use(express.json()); // this is for parsing the body (req.body)
-app.use(cors());
+
+// Passport
+
+app.use(passport.initialize());
+app.use(passport.session());
+require("./config/passport")(passport);
 
 // Import Routes
 const userRoute = require("./routes/user");
@@ -29,17 +32,21 @@ const postRoute = require("./routes/posts");
 const forumRoute = require("./routes/forums");
 const replyRoute = require("./routes/replies");
 const authRoute = require("./routes/auth");
+const playgroundRoute = require("./routes/playground");
 
 // Route middlewares
-app.use("/api/user", authRoute);
+app.use("/api/user", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/forums", forumRoute);
 app.use("/api/replies", replyRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/playground", playgroundRoute);
 
 // Connect to DB
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () =>
-  console.log("connected DB")
+mongoose.connect(
+  process.env.DB_CONNECT,
+  { useNewUrlParser: true, useCreateIndex: true },
+  () => console.log("connected DB")
 );
 
 app.listen(process.env.PORT, () =>

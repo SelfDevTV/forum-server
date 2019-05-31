@@ -1,13 +1,13 @@
 const router = require("express").Router();
-const verifyToken = require("../middleware/verifyToken");
+const isAuthenticated = require("../middleware/isAuthenticated");
 const Post = require("../model/Post");
 const Subforum = require("../model/SubForum");
 const User = require("../model/User");
 
-// This is a protected route with the "verifyToken" middleware
+// This is a protected route with the "isAuthenticated" middleware
 
 //TODO: save it into the user's posts array
-router.post("/new", verifyToken, async (req, res) => {
+router.post("/new", isAuthenticated, async (req, res) => {
   console.log(req.body.subForumId);
   const post = new Post({
     title: req.body.title,
@@ -34,7 +34,7 @@ router.post("/new", verifyToken, async (req, res) => {
 
 //TODO: Posts by subForum Id.
 
-router.get("/myposts", verifyToken, async (req, res) => {
+router.get("/myposts", isAuthenticated, async (req, res) => {
   try {
     const posts = await Post.find({ user: req.userId });
     res.send(posts);
