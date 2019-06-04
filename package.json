@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js",
-    "client": "cd client && npm start",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "nodemon ./server/index.js",
+    "build": "next build",
+    "start": "next start"
   },
   "keywords": [],
   "author": "",
@@ -24,11 +24,13 @@
     "http-proxy": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.9",
+    "next": "^8.1.0",
     "passport": "^0.4.0",
-    "passport-facebook": "^3.0.0"
+    "passport-facebook": "^3.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
-  },
-  "proxy": "http://localhost:3000"
+  }
 }
