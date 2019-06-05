@@ -1,3 +1,6 @@
-.env
+.vscode
 node_modules
-client/.next
+dist
+*.log
+yarn.lock
+.env

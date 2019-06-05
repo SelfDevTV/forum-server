@@ -1,6 +1,3 @@
 {
-  "verbose": true,
-  "ignore": ["node_modules", ".next", "client"],
-  "watch": ["server/**/*", "server.js"],
-  "ext": "js json"
+  "watch": ["src/server/"]
 }
